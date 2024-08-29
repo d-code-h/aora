@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <View className="flex-1 justify-center items-center">
       <Text className="text-8xl text-secondary-100 font-pblack">Aora!</Text>
-      <Link href="/profile">Go to Profile</Link>
+      <Link href="/home">Go to Home</Link>
       <StatusBar style="auto" />
     </View>
   );
