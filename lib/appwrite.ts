@@ -17,13 +17,23 @@ export const config = {
   storageId: process.env.EXPO_PUBLIC_STORAGEID,
 };
 
+const {
+  endpoint,
+  platform,
+  projectId,
+  databaseId,
+  userCollectionId,
+  videoCollectionId,
+  storageId,
+} = config;
+
 // Init your React Native SDK
 const client = new Client();
 
 client
-  .setEndpoint(config.endpoint as string) // Your Appwrite Endpoint
-  .setProject(config.projectId as string) // Your project ID
-  .setPlatform(config.platform as string); // Your application ID or bundle ID.
+  .setEndpoint(endpoint as string) // Your Appwrite Endpoint
+  .setProject(projectId as string) // Your project ID
+  .setPlatform(platform as string); // Your application ID or bundle ID.
 
 const account = new Account(client);
 const avatars = new Avatars(client);
@@ -49,8 +59,8 @@ export const createUser = async (
     await signIn(email, password);
 
     const newUser = await databases.createDocument(
-      config.databaseId as string,
-      config.userCollectionId as string,
+      databaseId as string,
+      userCollectionId as string,
       ID.unique(),
       {
         accountId: newAccount.$id,
@@ -81,14 +91,38 @@ export const getCurrentUser = async () => {
     if (!currentAccount) throw Error;
 
     const currentUser = await databases.listDocuments(
-      config.databaseId as string,
-      config.userCollectionId as string,
+      databaseId as string,
+      userCollectionId as string,
       [Query.equal('accountId', currentAccount.$id)]
     );
 
     if (!currentUser) throw Error;
 
     return currentUser.documents[0];
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const getAllPosts = async () => {
+  try {
+    const posts = databases.listDocuments(
+      databaseId as string,
+      videoCollectionId as string
+    );
+    return (await posts).documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+export const getLatestPost = async () => {
+  try {
+    const posts = databases.listDocuments(
+      databaseId as string,
+      videoCollectionId as string,
+      [Query.orderDesc('$createdAt'), Query.limit(7)]
+    );
+    return (await posts).documents;
   } catch (error: any) {
     throw new Error(error);
   }
