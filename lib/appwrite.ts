@@ -106,23 +106,57 @@ export const getCurrentUser = async () => {
 
 export const getAllPosts = async () => {
   try {
-    const posts = databases.listDocuments(
+    const posts = await databases.listDocuments(
       databaseId as string,
       videoCollectionId as string
     );
-    return (await posts).documents;
+    return posts.documents;
   } catch (error: any) {
     throw new Error(error);
   }
 };
 export const getLatestPost = async () => {
   try {
-    const posts = databases.listDocuments(
+    const posts = await databases.listDocuments(
       databaseId as string,
       videoCollectionId as string,
       [Query.orderDesc('$createdAt'), Query.limit(7)]
     );
-    return (await posts).documents;
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const searchPosts = async (query: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId as string,
+      videoCollectionId as string,
+      [Query.search('title', query)]
+    );
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const getUserPost = async (userId: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId as string,
+      videoCollectionId as string,
+      [Query.equal('creator', userId)]
+    );
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+export const signOut = async () => {
+  try {
+    const session = await account.deleteSession('current');
+    return session;
   } catch (error: any) {
     throw new Error(error);
   }

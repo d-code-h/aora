@@ -15,10 +15,13 @@ import { getAllPosts, getLatestPost } from '@/lib/appwrite';
 import useAppwrite from '@/lib/useAppwrite';
 import VideoCard from '@/components/VideoCard';
 import { Models } from 'react-native-appwrite';
+import { useGlobalContext } from '@/context/GlobalProvider';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+
   const {
     data: latestPost,
   }: {
@@ -45,7 +48,7 @@ const Home = () => {
                   Welcome Back
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  JSMastery
+                  {user?.username}
                 </Text>
               </View>
               <View className="mt-1.5">

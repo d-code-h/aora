@@ -11,7 +11,6 @@ const useAppwrite = (fn: () => Promise<Models.Document[]>) => {
 
     try {
       const response: Models.Document[] = await fn();
-
       setData(response);
     } catch (error: any) {
       Alert.alert('Error', error.message);

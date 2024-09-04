@@ -12,7 +12,8 @@ import { images } from '@/constants';
 import FormField from '@/components/FormField';
 import CustomButtom from '@/components/CustomButtom';
 import { Link, router } from 'expo-router';
-import { signIn } from '@/lib/appwrite';
+import { getCurrentUser, signIn } from '@/lib/appwrite';
+import { useGlobalContext } from '@/context/GlobalProvider';
 
 interface AuthState {
   email: string;
@@ -26,6 +27,7 @@ const SignIn = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser, setIsLoggedIn } = useGlobalContext();
 
   const submit = async () => {
     if (!form.email || !form.password) {
@@ -35,11 +37,15 @@ const SignIn = () => {
     try {
       await signIn(form.email, form.password);
 
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLoggedIn(true);
+
       router.replace('/home');
     } catch (error: any) {
       console.log(error);
 
-      Alert.alert('Errory', error.messge);
+      Alert.alert('Error', error.messge);
     } finally {
       setIsSubmitting(false);
     }
