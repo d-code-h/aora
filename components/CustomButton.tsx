@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { TouchableOpacity, Text } from 'react-native';
 
-const CustomButtom = ({
+const CustomButton = ({
   title,
   handlePress,
   containerStyles,
@@ -32,4 +32,4 @@ const CustomButtom = ({
   );
 };
 
-export default CustomButtom;
+export default CustomButton;

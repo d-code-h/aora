@@ -1,4 +1,4 @@
-import CustomButtom from '@/components/CustomButtom';
+import CustomButtom from '@/components/CustomButton';
 import { images } from '@/constants';
 import { useGlobalContext } from '@/context/GlobalProvider';
 import { Redirect, router } from 'expo-router';

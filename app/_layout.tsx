@@ -3,7 +3,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { GlobalProvider } from '../context/GlobalProvider';
 
 import { useFonts } from 'expo-font';
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
@@ -26,7 +26,6 @@ const RootLayout = () => {
 
   if (!fontsLoaded && !error) return null;
 
-  // return <Slot  />;
   return (
     <GlobalProvider>
       <Stack>

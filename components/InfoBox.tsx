@@ -2,12 +2,7 @@ import { View, Text } from 'react-native';
 import React, { FC } from 'react';
 import clsx from 'clsx';
 
-interface InfoBoxType {
-  title: string | number;
-  subtitle?: string;
-  containerStyles?: string;
-  titleStyles: string;
-}
+import { InfoBoxType } from '@/lib/types';
 
 const InfoBox: FC<InfoBoxType> = ({
   title,

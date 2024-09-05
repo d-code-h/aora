@@ -2,11 +2,8 @@ import { icons } from '@/constants';
 import { ResizeMode, Video } from 'expo-av';
 import { FC, useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { Models } from 'react-native-appwrite';
 
-interface VideoCardType {
-  video: Models.Document;
-}
+import { VideoCardType } from '@/lib/types';
 
 const VideoCard: FC<VideoCardType> = ({
   video: {

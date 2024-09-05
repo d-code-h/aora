@@ -1,5 +1,5 @@
 import { View, Text, Image, ImageSourcePropType } from 'react-native';
-import { Tabs, Redirect } from 'expo-router';
+import { Tabs } from 'expo-router';
 
 import { icons } from '../../constants';
 import clsx from 'clsx';
@@ -68,15 +68,15 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="bookmark"
+          name="profile"
           options={{
-            title: 'Bookmark',
+            title: 'Profile',
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={icons.profile}
                 color={color}
-                name="Bookmark"
+                name="Profile"
                 focused={focused}
               />
             ),
@@ -97,16 +97,17 @@ const TabsLayout = () => {
             ),
           }}
         />
+
         <Tabs.Screen
-          name="profile"
+          name="saved"
           options={{
-            title: 'Profile',
+            title: 'Saved',
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.profile}
+                icon={icons.bookmark}
                 color={color}
-                name="Profile"
+                name="Saved"
                 focused={focused}
               />
             ),

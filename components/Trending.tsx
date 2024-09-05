@@ -2,17 +2,14 @@ import { icons } from '@/constants';
 import { ResizeMode, Video } from 'expo-av';
 import { useState } from 'react';
 import {
-  View,
-  Text,
   FlatList,
   TouchableOpacity,
   ImageBackground,
   Image,
-  FlatListProps,
   ViewToken,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Models } from 'react-native-appwrite';
+import { TrendingProps } from '@/lib/types';
 
 // Animation definitions
 const zoomIn: Animatable.CustomAnimation = {
@@ -33,10 +30,7 @@ const zoomOut: Animatable.CustomAnimation = {
 };
 
 // TypeScript interface for the TrendingItem component props
-interface TrendingItemProps {
-  activeItem: string;
-  item: Models.Document & { video: string; thumbnail: string };
-}
+import { TrendingItemProps } from '@/lib/types';
 
 const TrendingItem: React.FC<TrendingItemProps> = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
@@ -83,10 +77,6 @@ const TrendingItem: React.FC<TrendingItemProps> = ({ activeItem, item }) => {
     </Animatable.View>
   );
 };
-
-interface TrendingProps {
-  posts: (Models.Document & { video: string; thumbnail: string })[];
-}
 
 const Trending: React.FC<TrendingProps> = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[1]?.$id);

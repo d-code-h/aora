@@ -8,19 +8,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  TextInputChangeEventData,
-  NativeSyntheticEvent,
   Alert,
 } from 'react-native';
-
-interface SearchType {
-  title?: string;
-  value?: string;
-  placeholder?: string;
-  handleChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
-  otherStyles?: string;
-  keyboardType?: string;
-}
 
 const SearchInput = ({ initialQuery }: { initialQuery: string }) => {
   // const [showPassword, setShowPassword] = useState(false);

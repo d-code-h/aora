@@ -1,25 +1,14 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TextInputChangeEventData,
-  Alert,
-} from 'react-native';
+import { View, Text, ScrollView, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '@/constants';
 import FormField from '@/components/FormField';
-import CustomButtom from '@/components/CustomButtom';
+import CustomButtom from '@/components/CustomButton';
 import { Link, router } from 'expo-router';
 import { createUser } from '@/lib/appwrite';
-import { GlobalProvider, useGlobalContext } from '@/context/GlobalProvider';
+import { useGlobalContext } from '@/context/GlobalProvider';
 
-interface AuthState {
-  username: string;
-  email: string;
-  password: string;
-}
+import { AuthState } from '@/lib/types';
 
 const SignUp = () => {
   const [form, setForm] = useState<AuthState>({
@@ -37,7 +26,11 @@ const SignUp = () => {
     }
     setIsSubmitting(true);
     try {
-      const result = await createUser(form.email, form.password, form.username);
+      const result = await createUser(
+        form.email,
+        form.password,
+        form.username as string
+      );
 
       setUser(result);
       setIsLoggedIn(true);
@@ -65,7 +58,7 @@ const SignUp = () => {
 
           <FormField
             title="Username"
-            value={form.username}
+            value={form.username as string}
             handleChange={(e) =>
               setForm({ ...form, username: e.nativeEvent.text })
             }

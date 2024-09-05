@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { Models } from 'react-native-appwrite';
 
 const useAppwrite = (fn: () => Promise<Models.Document[]>) => {

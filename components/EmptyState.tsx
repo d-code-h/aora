@@ -1,7 +1,7 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { images } from '@/constants';
-import CustomButtom from './CustomButtom';
+import CustomButtom from './CustomButton';
 import { router } from 'expo-router';
 
 const EmptyState = ({

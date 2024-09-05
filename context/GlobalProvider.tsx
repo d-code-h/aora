@@ -1,21 +1,8 @@
 import { getCurrentUser } from '@/lib/appwrite';
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { Models } from 'react-native-appwrite';
 
-interface GlobalType {
-  isLoggedIn: boolean;
-  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
-  user: Models.Document | null;
-  setUser: Dispatch<SetStateAction<Models.Document | null>>;
-  isLoading: boolean;
-}
+import { GlobalType } from '@/lib/types';
 
 const GlobalContext = createContext<GlobalType>({} as GlobalType);
 
