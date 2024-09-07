@@ -1,17 +1,14 @@
 import { View, Text, SafeAreaView, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SearchInput from '@/components/SearchInput';
-import Trending from '@/components/Trending';
 import EmptyState from '@/components/EmptyState';
-import { getAllPosts, getLatestPost, searchPosts } from '@/lib/appwrite';
+import { searchPosts } from '@/lib/appwrite';
 import useAppwrite from '@/lib/useAppwrite';
 import VideoCard from '@/components/VideoCard';
-import { Models } from 'react-native-appwrite';
 import { useLocalSearchParams } from 'expo-router';
 
 const Search = () => {
-  const [refreshing, setRefreshing] = useState(false);
-  const { query } = useLocalSearchParams();
+  const { query }: { query: string } = useLocalSearchParams();
   const { data: posts, refetch } = useAppwrite(() => searchPosts(query));
 
   useEffect(() => {

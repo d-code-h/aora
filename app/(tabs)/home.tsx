@@ -6,7 +6,7 @@ import {
   Image,
   RefreshControl,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { images } from '@/constants';
 import SearchInput from '@/components/SearchInput';
 import Trending from '@/components/Trending';
@@ -20,7 +20,7 @@ import { useGlobalContext } from '@/context/GlobalProvider';
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { data: posts, refetch } = useAppwrite(getAllPosts);
-  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+  const { user } = useGlobalContext();
 
   const {
     data: latestPost,

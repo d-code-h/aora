@@ -1,30 +1,15 @@
 import { icons } from '@/constants';
+import { FormFieldType } from '@/lib/types';
 import clsx from 'clsx';
-import { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  TextInputChangeEventData,
-  NativeSyntheticEvent,
-} from 'react-native';
+import { FC, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 
-const FormField = ({
+const FormField: FC<FormFieldType> = ({
   title,
   value,
   placeholder,
   handleChange,
   otherStyles,
-  ...props
-}: {
-  title: string;
-  value: string;
-  placeholder?: string;
-  handleChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
-  otherStyles: string;
-  keyboardType?: string;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 

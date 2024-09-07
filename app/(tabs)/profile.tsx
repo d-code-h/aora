@@ -1,29 +1,19 @@
-import { View, Text, SafeAreaView, FlatList, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import SearchInput from '@/components/SearchInput';
-import Trending from '@/components/Trending';
+import { View, SafeAreaView, FlatList, Image } from 'react-native';
+import React, { useState } from 'react';
 import EmptyState from '@/components/EmptyState';
-import {
-  getAllPosts,
-  getLatestPost,
-  getUserPost,
-  searchPosts,
-  signOut,
-} from '@/lib/appwrite';
+import { getUserPost, signOut } from '@/lib/appwrite';
 import useAppwrite from '@/lib/useAppwrite';
 import VideoCard from '@/components/VideoCard';
-import { Models } from 'react-native-appwrite';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 import { useGlobalContext } from '@/context/GlobalProvider';
 import { TouchableOpacity } from 'react-native';
 import { icons } from '@/constants';
 import InfoBox from '@/components/InfoBox';
 
 const Profile = () => {
-  const [refreshing, setRefreshing] = useState(false);
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
-  const { data: posts, refetch } = useAppwrite(() => getUserPost(user?.$id));
+  const { data: posts } = useAppwrite(() => getUserPost(user?.$id as string));
 
   const logout = async () => {
     await signOut();

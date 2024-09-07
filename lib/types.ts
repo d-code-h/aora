@@ -41,11 +41,11 @@ interface VideoCardType {
 
 interface TrendingItemProps {
   activeItem: string;
-  item: Models.Document & { video: string; thumbnail: string };
+  item: Models.Document;
 }
 
 interface TrendingProps {
-  posts: (Models.Document & { video: string; thumbnail: string })[];
+  posts: Models.Document[];
 }
 
 interface InfoBoxType {
@@ -53,6 +53,28 @@ interface InfoBoxType {
   subtitle?: string;
   containerStyles?: string;
   titleStyles: string;
+}
+
+interface CustomButtonType {
+  title: string;
+  handlePress: () => void;
+  containerStyles: string;
+  textStyles?: string;
+  isLoading?: boolean;
+}
+
+interface EmptyStateType {
+  title: string;
+  subtitle: string;
+}
+
+interface FormFieldType {
+  title: string;
+  value: string;
+  placeholder?: string;
+  handleChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  otherStyles: string;
+  keyboardType?: string;
 }
 
 export type {
@@ -63,5 +85,8 @@ export type {
   TrendingItemProps,
   TrendingProps,
   InfoBoxType,
+  CustomButtonType,
+  EmptyStateType,
   Form,
+  FormFieldType,
 };

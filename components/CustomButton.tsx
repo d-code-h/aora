@@ -1,18 +1,14 @@
+import { CustomButtonType } from '@/lib/types';
 import { clsx } from 'clsx';
+import { FC } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 
-const CustomButton = ({
+const CustomButton: FC<CustomButtonType> = ({
   title,
   handlePress,
   containerStyles,
   textStyles,
   isLoading,
-}: {
-  title: string;
-  handlePress: () => void;
-  containerStyles: string;
-  textStyles?: string;
-  isLoading?: boolean;
 }) => {
   return (
     <TouchableOpacity
