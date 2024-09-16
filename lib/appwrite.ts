@@ -93,7 +93,7 @@ export const signIn = async (email: string, password: string) => {
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
-    if (!currentAccount) throw Error;
+    if (!currentAccount) throw new Error();
 
     const currentUser = await databases.listDocuments(
       databaseId as string,
@@ -101,7 +101,7 @@ export const getCurrentUser = async () => {
       [Query.equal('accountId', currentAccount.$id)]
     );
 
-    if (!currentUser) throw Error;
+    if (!currentUser || currentUser.documents.length === 0) throw new Error();
 
     return currentUser.documents[0];
   } catch (error: any) {

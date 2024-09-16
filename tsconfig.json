@@ -13,6 +13,7 @@
     "expo-env.d.ts",
     "constants/icons.js",
     "constants/Colors.js",
-    "constants/images.js"
+    "constants/images.js",
+    "constants/index.js"
   ]
 }

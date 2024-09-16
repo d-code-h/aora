@@ -24,7 +24,9 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
           setUser(null);
         }
       })
-      .catch((error: any) => console.log(error))
+      .catch((error: any) => {
+        // console.log('Error during authentication check:', error);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 

@@ -20,7 +20,12 @@ const AuthLayout = () => {
           }}
         />
       </Stack>
-      <StatusBar backgroundColor="#161622" style="light" />
+      <StatusBar
+        hidden={true}
+        // backgroundColor="#161622"
+
+        style="auto"
+      />
     </>
   );
 };

@@ -50,7 +50,12 @@ export default function Index() {
           />
         </View>
       </ScrollView>
-      <StatusBar backgroundColor="#161622" style="light" />
+      <StatusBar
+        hidden={true}
+        // backgroundColor="#161622"
+
+        style="auto"
+      />
     </SafeAreaView>
   );
 }
