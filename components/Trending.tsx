@@ -3,7 +3,7 @@ import { ResizeMode, Video } from 'expo-av';
 import { useState } from 'react';
 import {
   FlatList,
-  TouchableOpacity,
+  Pressable,
   ImageBackground,
   Image,
   ViewToken,
@@ -20,6 +20,7 @@ const zoomIn: Animatable.CustomAnimation = {
     transform: [{ scale: 1.1 }],
   },
 };
+
 const zoomOut: Animatable.CustomAnimation = {
   0: {
     transform: [{ scale: 1.1 }],
@@ -57,9 +58,9 @@ const TrendingItem: React.FC<TrendingItemProps> = ({ activeItem, item }) => {
           }}
         />
       ) : (
-        <TouchableOpacity
-          className="relative justify-center items-center"
-          activeOpacity={0.7}
+        <Pressable
+          className="relative justify-center items-center active:opacity-50"
+          // activeOpacity={0.7}
           onPress={() => setPlay(true)}
         >
           <ImageBackground
@@ -72,7 +73,7 @@ const TrendingItem: React.FC<TrendingItemProps> = ({ activeItem, item }) => {
             className="w-12 h-12 absolute"
             resizeMode="contain"
           />
-        </TouchableOpacity>
+        </Pressable>
       )}
     </Animatable.View>
   );

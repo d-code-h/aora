@@ -1,19 +1,19 @@
 import { View, SafeAreaView, FlatList, Image } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import EmptyState from '@/components/EmptyState';
-import { getUserPost, signOut } from '@/lib/appwrite';
+import { getUserPosts, signOut } from '@/lib/appwrite';
 import useAppwrite from '@/lib/useAppwrite';
 import VideoCard from '@/components/VideoCard';
 import { router } from 'expo-router';
 import { useGlobalContext } from '@/context/GlobalProvider';
-import { TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import { icons } from '@/constants';
 import InfoBox from '@/components/InfoBox';
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
-  const { data: posts } = useAppwrite(() => getUserPost(user?.$id as string));
+  const { data: posts } = useAppwrite(() => getUserPosts(user?.$id as string));
 
   const logout = async () => {
     await signOut();
@@ -31,16 +31,13 @@ const Profile = () => {
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
-            <TouchableOpacity
-              className="w-full items-end mb-10"
-              onPress={logout}
-            >
+            <Pressable className="w-full items-end mb-10" onPress={logout}>
               <Image
                 source={icons.logout}
                 resizeMode="contain"
                 className="w-6 h-6"
               />
-            </TouchableOpacity>
+            </Pressable>
             <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-center">
               <Image
                 source={{ uri: user?.avatar }}

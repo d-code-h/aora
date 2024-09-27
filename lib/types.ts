@@ -27,16 +27,19 @@ interface AuthState {
   password: string;
 }
 
+interface VideoCardType {
+  video: Models.Document;
+}
 interface GlobalType {
   isLoggedIn: boolean;
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
   user: Models.Document | null;
   setUser: Dispatch<SetStateAction<Models.Document | null>>;
   isLoading: boolean;
-}
-
-interface VideoCardType {
-  video: Models.Document;
+  posts: Models.Document[];
+  refetch: () => void;
+  userPrefs: Models.Preferences | null;
+  setUserPrefs: Dispatch<SetStateAction<Models.Preferences>>;
 }
 
 interface TrendingItemProps {

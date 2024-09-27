@@ -3,14 +3,7 @@ import { router } from 'expo-router';
 import { ResizeMode, Video } from 'expo-av';
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  View,
-  Text,
-  Alert,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { View, Text, Alert, Image, Pressable, ScrollView } from 'react-native';
 
 import { icons } from '../../constants';
 import CustomButton from '@/components/CustomButton';
@@ -107,7 +100,7 @@ const Create = () => {
             Upload Video
           </Text>
 
-          <TouchableOpacity onPress={() => openPicker('video')}>
+          <Pressable onPress={() => openPicker('video')}>
             {form.video ? (
               <Video
                 source={{ uri: form.video.uri }}
@@ -126,7 +119,7 @@ const Create = () => {
                 </View>
               </View>
             )}
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         <View className="mt-7 space-y-2">
@@ -134,7 +127,7 @@ const Create = () => {
             Thumbnail Image
           </Text>
 
-          <TouchableOpacity onPress={() => openPicker('image')}>
+          <Pressable onPress={() => openPicker('image')}>
             {form.thumbnail ? (
               <Image
                 source={{ uri: form.thumbnail.uri }}
@@ -154,7 +147,7 @@ const Create = () => {
                 </Text>
               </View>
             )}
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         <FormField

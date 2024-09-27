@@ -1,8 +1,9 @@
-import { getCurrentUser } from '@/lib/appwrite';
+import { getAllPosts, getCurrentUser } from '@/lib/appwrite';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { Models } from 'react-native-appwrite';
 
 import { GlobalType } from '@/lib/types';
+import useAppwrite from '@/lib/useAppwrite';
 
 const GlobalContext = createContext<GlobalType>({} as GlobalType);
 
@@ -11,19 +12,30 @@ export const useGlobalContext = () => useContext(GlobalContext);
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<Models.Document | null>(null);
+  const [userPrefs, setUserPrefs] = useState<Models.Preferences | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
 
   useEffect(() => {
     getCurrentUser()
-      .then((res: Models.Document | null) => {
-        if (res) {
-          setIsLoggedIn(true);
-          setUser(res);
-        } else {
-          setIsLoggedIn(false);
-          setUser(null);
+      .then(
+        ({
+          currentUser,
+          userPrefs,
+        }: {
+          currentUser: Models.Document;
+          userPrefs: Models.Preferences;
+        }) => {
+          if (currentUser) {
+            setIsLoggedIn(true);
+            setUser(currentUser);
+            setUserPrefs(userPrefs);
+          } else {
+            setIsLoggedIn(false);
+            setUser(null);
+          }
         }
-      })
+      )
       .catch((error: any) => {
         // console.log('Error during authentication check:', error);
       })
@@ -38,6 +50,10 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         user,
         setUser,
         isLoading,
+        posts,
+        refetch,
+        userPrefs,
+        setUserPrefs,
       }}
     >
       {children}

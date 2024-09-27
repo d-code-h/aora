@@ -11,7 +11,7 @@ import { images } from '@/constants';
 import SearchInput from '@/components/SearchInput';
 import Trending from '@/components/Trending';
 import EmptyState from '@/components/EmptyState';
-import { getAllPosts, getLatestPost } from '@/lib/appwrite';
+import { getLatestPost } from '@/lib/appwrite';
 import useAppwrite from '@/lib/useAppwrite';
 import VideoCard from '@/components/VideoCard';
 import { Models } from 'react-native-appwrite';
@@ -19,8 +19,7 @@ import { useGlobalContext } from '@/context/GlobalProvider';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { data: posts, refetch } = useAppwrite(getAllPosts);
-  const { user } = useGlobalContext();
+  const { user, posts, refetch } = useGlobalContext();
 
   const {
     data: latestPost,
@@ -42,7 +41,7 @@ const Home = () => {
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-12 px-4 space-y-6">
-            <View className="justify-between items-start flex-row mb-6 ">
+            <View className="justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
                   Welcome Back

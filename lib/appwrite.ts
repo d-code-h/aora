@@ -103,7 +103,10 @@ export const getCurrentUser = async () => {
 
     if (!currentUser || currentUser.documents.length === 0) throw new Error();
 
-    return currentUser.documents[0];
+    return {
+      currentUser: currentUser.documents[0],
+      userPrefs: currentAccount.prefs,
+    };
   } catch (error: any) {
     throw new Error(error);
   }
@@ -134,18 +137,6 @@ export const getLatestPost = async () => {
   }
 };
 
-export const getUserPost = async (userId: string) => {
-  try {
-    const posts = await databases.listDocuments(
-      databaseId as string,
-      videoCollectionId as string,
-      [Query.equal('creator', userId)]
-    );
-    return posts.documents;
-  } catch (error: any) {
-    throw new Error(error);
-  }
-};
 export const signOut = async () => {
   try {
     const session = await account.deleteSession('current');
@@ -280,4 +271,42 @@ export const getLatestPosts = async () => {
   } catch (error: any) {
     throw new Error(error);
   }
+};
+
+// Get current user saved video
+export const getSavedPosts = async (ids: string[]) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId as string,
+      videoCollectionId as string,
+      [Query.equal('$id', ids)]
+    );
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+// Save new favorite
+export const saveFavorite = async (id: string) => {
+  try {
+    const { prefs } = await account.get();
+    let updatedPrefs = prefs.saved
+      ? prefs.saved.includes(id)
+        ? prefs.saved.filter((e: string) => e !== id)
+        : [...prefs.saved, id]
+      : [id];
+
+    const res = await account.updatePrefs({
+      saved: updatedPrefs,
+    });
+    return res.prefs;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+// Delete a video post
+export const deletePost = async (id: string) => {
+  console.log(id);
 };

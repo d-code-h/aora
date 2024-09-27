@@ -1,7 +1,7 @@
 import { icons } from '@/constants';
 import { router, usePathname } from 'expo-router';
 import { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, TextInput, Pressable, Image, Alert } from 'react-native';
 
 const SearchInput = ({
   initialQuery,
@@ -23,7 +23,7 @@ const SearchInput = ({
         onChangeText={(e: any) => setQuery(e)}
       />
 
-      <TouchableOpacity
+      <Pressable
         onPress={() => {
           if (!query) {
             return Alert.alert(
@@ -40,7 +40,7 @@ const SearchInput = ({
         }}
       >
         <Image source={icons.search} className="w-5 h-5" resizeMode="contain" />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
