@@ -1,9 +1,14 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "types": [
+      "nativewind/types"
+    ],
     "strict": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -11,9 +16,6 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "constants/icons.js",
-    "constants/Colors.js",
-    "constants/images.js",
-    "constants/index.js"
+    "nativewind-env.d.ts"
   ]
 }

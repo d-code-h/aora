@@ -26,7 +26,7 @@ const TabIcon = ({
       <Text
         className={clsx(
           focused ? 'font-psemibold' : 'font-pregular',
-          `text-xs`
+          `text-xs w-full`
         )}
         style={{ color: color }}
       >
