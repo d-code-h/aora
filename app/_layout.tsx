@@ -12,15 +12,15 @@ SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   // Loading custom fonts using the useFonts hook
   const [fontsLoaded, error] = useFonts({
-    'Poppins-Black': require('../public/assets/fonts/Poppins-Black.ttf'), // Custom font for bold text
-    'Poppins-Bold': require('../public/assets/fonts/Poppins-Bold.ttf'), // Custom font for semi-bold text
-    'Poppins-ExtraBold': require('../public/assets/fonts/Poppins-ExtraBold.ttf'), // Extra bold font
-    'Poppins-ExtraLight': require('../public/assets/fonts/Poppins-ExtraLight.ttf'), // Extra light font
-    'Poppins-Light': require('../public/assets/fonts/Poppins-Light.ttf'), // Light font
-    'Poppins-Medium': require('../public/assets/fonts/Poppins-Medium.ttf'), // Medium font weight
-    'Poppins-Regular': require('../public/assets/fonts/Poppins-Regular.ttf'), // Regular font weight
-    'Poppins-SemiBold': require('../public/assets/fonts/Poppins-SemiBold.ttf'), // Semi-bold font
-    'Poppins-Thin': require('../public/assets/fonts/Poppins-Thin.ttf'), // Thin font
+    'Poppins-Black': require('../public/fonts/Poppins-Black.ttf'), // Custom font for bold text
+    'Poppins-Bold': require('../public/fonts/Poppins-Bold.ttf'), // Custom font for semi-bold text
+    'Poppins-ExtraBold': require('../public/fonts/Poppins-ExtraBold.ttf'), // Extra bold font
+    'Poppins-ExtraLight': require('../public/fonts/Poppins-ExtraLight.ttf'), // Extra light font
+    'Poppins-Light': require('../public/fonts/Poppins-Light.ttf'), // Light font
+    'Poppins-Medium': require('../public/fonts/Poppins-Medium.ttf'), // Medium font weight
+    'Poppins-Regular': require('../public/fonts/Poppins-Regular.ttf'), // Regular font weight
+    'Poppins-SemiBold': require('../public/fonts/Poppins-SemiBold.ttf'), // Semi-bold font
+    'Poppins-Thin': require('../public/fonts/Poppins-Thin.ttf'), // Thin font
   });
 
   // useEffect hook to manage the splash screen and handle font loading errors
