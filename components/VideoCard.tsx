@@ -36,7 +36,7 @@ const VideoCard: FC<VideoCardType> = ({
 
   return (
     <View className="flex-col items-center mx-4 mb-14">
-      <View className="flex-row gap-3 items-start ">
+      <View className="flex-row gap-3 items-start">
         <View className="justify-center items-center flex-row flex-1">
           <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center p-0.5">
             <Image
@@ -70,10 +70,11 @@ const VideoCard: FC<VideoCardType> = ({
           </Pressable>
         </View>
       </View>
+
       <View
         className={clsx(
-          'border border-black-100 rounded-md hidden gap-1 ml-auto w-[111px] bg-black-100 absolute right-0 top-10 z-10',
-          more && 'flex'
+          'border border-black-100 rounded-md gap-1 ml-auto w-[111px] bg-black-100 absolute right-0 top-10 z-10',
+          more ? 'flex' : 'hidden'
         )}
       >
         <Pressable onPress={() => handleFavorite($id)}>
@@ -101,6 +102,7 @@ const VideoCard: FC<VideoCardType> = ({
           </Pressable>
         )}
       </View>
+
       {isPlaying ? (
         <VideoView
           style={styles.video}
