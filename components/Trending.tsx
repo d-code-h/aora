@@ -1,5 +1,7 @@
 import { icons } from '@/constants';
-import { ResizeMode, Video } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
+import { StyleSheet } from 'react-native';
+
 import { useState } from 'react';
 import {
   FlatList,
@@ -10,6 +12,9 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TrendingProps } from '@/lib/types';
+// TypeScript interface for the TrendingItem component props
+import { TrendingItemProps } from '@/lib/types';
+import { useEvent } from 'expo';
 
 // Animation definitions
 const zoomIn: Animatable.CustomAnimation = {
@@ -30,11 +35,12 @@ const zoomOut: Animatable.CustomAnimation = {
   },
 };
 
-// TypeScript interface for the TrendingItem component props
-import { TrendingItemProps } from '@/lib/types';
-
 const TrendingItem: React.FC<TrendingItemProps> = ({ activeItem, item }) => {
-  const [play, setPlay] = useState(false);
+  const player = useVideoPlayer(item.video);
+
+  const { isPlaying } = useEvent(player, 'playingChange', {
+    isPlaying: player.playing,
+  });
 
   return (
     <Animatable.View
@@ -42,26 +48,18 @@ const TrendingItem: React.FC<TrendingItemProps> = ({ activeItem, item }) => {
       animation={activeItem === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
-      {play ? (
-        <Video
-          source={{
-            uri: item.video,
-          }}
-          className="w-52 h-72 rounded-[35px] mt-3  bg-white/10"
-          resizeMode={ResizeMode.COVER}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if ('didJustFinish' in status && status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
+      {isPlaying ? (
+        <VideoView
+          style={styles.video}
+          player={player}
+          allowsFullscreen
+          allowsPictureInPicture
         />
       ) : (
         <Pressable
           className="relative justify-center items-center active:opacity-50"
           // activeOpacity={0.7}
-          onPress={() => setPlay(true)}
+          onPress={() => (isPlaying ? player.pause() : player.replay())}
         >
           <ImageBackground
             source={{ uri: item.thumbnail }}
@@ -108,5 +106,15 @@ const Trending: React.FC<TrendingProps> = ({ posts }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  video: {
+    width: 208,
+    height: 288,
+    marginTop: 12,
+    borderRadius: 35,
+    backgroundColor: 'rgb(255 255 255 / 0.1)',
+  },
+});
 
 export default Trending;

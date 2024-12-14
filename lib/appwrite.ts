@@ -101,7 +101,8 @@ export const getCurrentUser = async () => {
       [Query.equal('accountId', currentAccount.$id)]
     );
 
-    if (!currentUser || currentUser.documents.length === 0) throw new Error();
+    if (!currentUser || currentUser.documents.length === 0)
+      throw new Error('No user is logged in');
 
     return {
       currentUser: currentUser.documents[0],

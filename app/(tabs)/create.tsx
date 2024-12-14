@@ -1,9 +1,16 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { ResizeMode, Video } from 'expo-av';
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, Alert, Image, Pressable, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  Alert,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 
 import { icons } from '../../constants';
 import CustomButton from '@/components/CustomButton';
@@ -11,6 +18,7 @@ import FormField from '@/components/FormField';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { Form } from '@/lib/types';
 import { createVideoPost } from '@/lib/appwrite';
+import { useVideoPlayer, VideoView } from 'expo-video';
 
 const Create = () => {
   const { user } = useGlobalContext();
@@ -22,12 +30,12 @@ const Create = () => {
     prompt: '',
   });
 
+  const player = useVideoPlayer(form.video?.uri as string);
+
   const openPicker = async (selectType: string) => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes:
-        selectType === 'image'
-          ? ImagePicker.MediaTypeOptions.Images
-          : ImagePicker.MediaTypeOptions.Videos,
+      mediaTypes: ['images', 'videos'],
+      allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
@@ -45,11 +53,6 @@ const Create = () => {
         });
       }
     }
-    // else {
-    //   setTimeout(() => {
-    //     Alert.alert('Document picked', JSON.stringify(result, null, 2));
-    //   }, 100);
-    // }
   };
 
   const submit = async () => {
@@ -102,10 +105,11 @@ const Create = () => {
 
           <Pressable onPress={() => openPicker('video')}>
             {form.video ? (
-              <Video
-                source={{ uri: form.video.uri }}
-                className="w-full h-64 rounded-2xl"
-                resizeMode={ResizeMode.COVER}
+              <VideoView
+                style={styles.video}
+                player={player}
+                allowsFullscreen
+                allowsPictureInPicture
               />
             ) : (
               <View className="w-full h-40 px-4 bg-black-100 rounded-2xl border border-black-200 flex justify-center items-center">
@@ -171,4 +175,11 @@ const Create = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  video: {
+    width: '100%',
+    height: 256,
+    borderRadius: 16,
+  },
+});
 export default Create;

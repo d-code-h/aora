@@ -1,5 +1,5 @@
 import { icons } from '@/constants';
-import { ResizeMode, Video } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import { FC, useState } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 
@@ -7,6 +7,8 @@ import { VideoCardType } from '@/lib/types';
 import clsx from 'clsx';
 import { useGlobalContext } from '@/context/GlobalProvider';
 import { deletePost, saveFavorite } from '@/lib/appwrite';
+import { useEvent } from 'expo';
+import { StyleSheet } from 'react-native';
 
 const VideoCard: FC<VideoCardType> = ({
   video: {
@@ -17,7 +19,6 @@ const VideoCard: FC<VideoCardType> = ({
     creator: { username, avatar, accountId },
   },
 }) => {
-  const [play, setPlay] = useState(false);
   const [more, setMore] = useState(false);
   const { user, userPrefs, setUserPrefs } = useGlobalContext();
 
@@ -26,6 +27,12 @@ const VideoCard: FC<VideoCardType> = ({
     setUserPrefs(res);
     setMore(false);
   };
+
+  const player = useVideoPlayer(video);
+
+  const { isPlaying } = useEvent(player, 'playingChange', {
+    isPlaying: player.playing,
+  });
 
   return (
     <View className="flex-col items-center mx-4 mb-14">
@@ -94,26 +101,18 @@ const VideoCard: FC<VideoCardType> = ({
           </Pressable>
         )}
       </View>
-      {play ? (
-        <Video
-          source={{
-            uri: video,
-          }}
-          className="w-full h-60 rounded-xl mt-3"
-          resizeMode={ResizeMode.COVER}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if ('didJustFinish' in status && status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
+      {isPlaying ? (
+        <VideoView
+          style={styles.video}
+          player={player}
+          allowsFullscreen
+          allowsPictureInPicture
         />
       ) : (
         <Pressable
-          // activeOpacity={0.7}
-          onPress={() => setPlay(true)}
           className="w-full h-60 rounded-xl mt-3 relative justify-center items-center active:opacity-50"
+          // activeOpacity={0.7}
+          onPress={() => (isPlaying ? player.pause() : player.replay())}
         >
           <Image
             source={{ uri: thumbnail }}
@@ -130,5 +129,14 @@ const VideoCard: FC<VideoCardType> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  video: {
+    width: '100%',
+    height: 240,
+    marginTop: 12,
+    borderRadius: 12,
+  },
+});
 
 export default VideoCard;
