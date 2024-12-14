@@ -6,8 +6,6 @@ Built with React Native for seamless user experiences, Animatable for captivatin
 
 ## 🔧 Technologies Used
 
----
-
 - **React Native**: For building the mobile app.
 - **Appwrite**: For backend services, user authentication, and data storage.
 - **Expo**: For building and running the app.
@@ -15,8 +13,6 @@ Built with React Native for seamless user experiences, Animatable for captivatin
 - **Animatable**: For the smooth animations
 
 ## 🚀 Features
-
----
 
 🔋 Features
 👉 **Onboarding Screen**: Engaging graphics and clear instructions welcome users to the app.
@@ -43,8 +39,6 @@ and many more, including code architecture and reusability
 
 ## 📲 Installation
 
----
-
 1. **Clone the repository**:
 
    ```bash
@@ -62,8 +56,6 @@ and many more, including code architecture and reusability
    `bun start`
 
 ## 🔑 Setting Up Appwrite
-
----
 
 1. Set up an Appwrite project: [Appwrite Setup Guide](https://appwrite.io/docs/getting-started).
 2. Create a collection for **users** and configure authentication methods (e.g., email & password).
@@ -85,8 +77,6 @@ EXPO_PUBLIC_STORAGEID = <your_appwrite_storage_id>
 
 ## 💻 Development
 
----
-
 To contribute, follow these steps:
 
 1. Fork the repository and clone it to your local machine.
@@ -96,7 +86,5 @@ To contribute, follow these steps:
 5. Open a pull request with a description of your changes.
 
 ## 📝 License
-
----
 
 This project is licensed under the MIT License.
