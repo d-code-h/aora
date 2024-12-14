@@ -85,6 +85,6 @@ To contribute, follow these steps:
 4. Commit your changes and push to your branch.
 5. Open a pull request with a description of your changes.
 
-## 📝 License
+## ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg) License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
