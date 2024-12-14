@@ -4,19 +4,17 @@ import clsx from 'clsx';
 
 import { InfoBoxType } from '@/lib/types';
 
-// InfoBox component displays a box with a title and subtitle
 const InfoBox: FC<InfoBoxType> = ({
-  title, // The main title of the info box
-  subtitle, // The subtitle or description under the title
-  containerStyles, // Optional custom styles for the container
-  titleStyles, // Optional custom styles for the title text
+  title,
+  subtitle,
+  containerStyles,
+  titleStyles,
 }) => {
   return (
-    // The container View, with optional custom styles applied via containerStyles
     <View className={containerStyles}>
       {/* Title Text with custom styles applied */}
       <Text
-        className={clsx('text-white text-center font-psemibold', titleStyles)} // Title with predefined styles and optional custom styles
+        className={clsx('text-white text-center font-psemibold', titleStyles)}
       >
         {title} {/* Displays the title */}
       </Text>

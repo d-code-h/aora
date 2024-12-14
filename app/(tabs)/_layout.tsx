@@ -1,38 +1,36 @@
-import { View, Text, Image, ImageSourcePropType } from 'react-native'; // Importing necessary components from react-native
-import { Tabs } from 'expo-router'; // Importing Tabs from expo-router to create a tab navigation layout
+import { View, Text, Image, ImageSourcePropType } from 'react-native';
+import { Tabs } from 'expo-router';
 
-import { icons } from '../../constants'; // Importing icons from a constants file
-import clsx from 'clsx'; // Importing clsx for conditional className handling
+import { icons } from '../../constants';
+import clsx from 'clsx';
 
-// TabIcon component that renders the icon and name for each tab
 const TabIcon = ({
-  icon, // Icon source for the tab
-  color, // Color for the icon and text
-  name, // Name of the tab to be displayed
-  focused, // Boolean indicating if the tab is focused (selected)
+  icon,
+  color,
+  name,
+  focused,
 }: {
-  icon: ImageSourcePropType; // Icon for the tab (image source)
-  color: string; // Color of the icon and text (based on tab focus state)
-  name: string; // Name of the tab to display beneath the icon
-  focused: boolean; // Whether the tab is focused (selected by the user)
+  icon: ImageSourcePropType;
+  color: string;
+  name: string;
+  focused: boolean;
 }) => {
   return (
-    // View wrapping the icon and text for the tab
     <View className="justify-center items-center gap-2">
       {/* Image component for the tab icon */}
       <Image
-        source={icon} // Setting the icon for the tab
-        resizeMode="contain" // Ensures the icon maintains its aspect ratio
-        tintColor={color} // Applying the color to the icon
-        className="w-6 h-6" // Setting size for the icon
+        source={icon}
+        resizeMode="contain"
+        tintColor={color}
+        className="w-6 h-6"
       />
       {/* Text component for the tab name */}
       <Text
         className={clsx(
-          focused ? 'font-psemibold' : 'font-pregular', // Conditionally apply bold or regular font depending on tab focus
+          focused ? 'font-psemibold' : 'font-pregular',
           `text-xs w-full`
         )}
-        style={{ color: color }} // Setting the color of the tab name text
+        style={{ color: color }}
       >
         {name} {/* Displaying the name of the tab */}
       </Text>
@@ -40,87 +38,85 @@ const TabIcon = ({
   );
 };
 
-// TabsLayout component that sets up the tab navigation layout
 const TabsLayout = () => {
   return (
     <>
       <Tabs
-        // Configuring the tab bar options
         screenOptions={{
-          tabBarShowLabel: false, // Hides the tab labels (we are using icons and names as labels)
-          tabBarActiveTintColor: '#FFA001', // Active tab color
-          tabBarInactiveTintColor: '#CDCDE0', // Inactive tab color
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: '#FFA001',
+          tabBarInactiveTintColor: '#CDCDE0',
           tabBarStyle: {
-            backgroundColor: '#161622', // Background color of the tab bar
-            borderTopWidth: 1, // Border width for the top of the tab bar
-            borderTopColor: '#232533', // Border color for the top of the tab bar
-            height: 84, // Height of the tab bar
-            flexDirection: 'row', // Lays out the tabs horizontally
-            justifyContent: 'space-evenly', // Spreads out the tabs evenly
-            alignItems: 'center', // Aligns the items vertically at the center
+            backgroundColor: '#161622',
+            borderTopWidth: 1,
+            borderTopColor: '#232533',
+            height: 84,
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
           },
         }}
       >
         {/* Home tab */}
         <Tabs.Screen
-          name="home" // Tab name (used for navigation)
+          name="home"
           options={{
-            title: 'Home', // Displayed title for the tab (used in navigation stack)
-            headerShown: false, // Hides the header for this screen
+            title: 'Home',
+            headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home} // Icon for the home tab
-                color={color} // Color for the icon and text
-                name="Home" // Name to display under the icon
-                focused={focused} // Whether the tab is focused (selected)
+                icon={icons.home}
+                color={color}
+                name="Home"
+                focused={focused}
               />
             ),
           }}
         />
         {/* Profile tab */}
         <Tabs.Screen
-          name="profile" // Tab name (used for navigation)
+          name="profile"
           options={{
-            title: 'Profile', // Displayed title for the tab (used in navigation stack)
-            headerShown: false, // Hides the header for this screen
+            title: 'Profile',
+            headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.profile} // Icon for the profile tab
-                color={color} // Color for the icon and text
-                name="Profile" // Name to display under the icon
-                focused={focused} // Whether the tab is focused (selected)
+                icon={icons.profile}
+                color={color}
+                name="Profile"
+                focused={focused}
               />
             ),
           }}
         />
         {/* Create tab */}
         <Tabs.Screen
-          name="create" // Tab name (used for navigation)
+          name="create"
           options={{
-            title: 'Create', // Displayed title for the tab (used in navigation stack)
-            headerShown: false, // Hides the header for this screen
+            title: 'Create',
+            headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.plus} // Icon for the create tab
-                color={color} // Color for the icon and text
-                name="Create" // Name to display under the icon
-                focused={focused} // Whether the tab is focused (selected)
+                icon={icons.plus}
+                color={color}
+                name="Create"
+                focused={focused}
               />
             ),
           }}
         />
         {/* Saved tab */}
         <Tabs.Screen
-          name="saved" // Tab name (used for navigation)
+          name="saved"
           options={{
-            title: 'Saved', // Displayed title for the tab (used in navigation stack)
-            headerShown: false, // Hides the header for this screen
+            title: 'Saved',
+            headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark} // Icon for the saved tab
-                color={color} // Color for the icon and text
-                name="Saved" // Name to display under the icon
-                focused={focused} // Whether the tab is focused (selected)
+                icon={icons.bookmark}
+                color={color}
+                name="Saved"
+                focused={focused}
               />
             ),
           }}

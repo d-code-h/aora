@@ -20,21 +20,18 @@ import { createVideoPost } from '@/lib/appwrite';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { Form } from '@/lib/types';
 
-// Component to handle video creation
 const Create = () => {
-  const { user } = useGlobalContext(); // Global context to get user information
-  const [uploading, setUploading] = useState(false); // State to track if the video is uploading
+  const { user } = useGlobalContext();
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState<Form>({
-    title: '', // Title of the video
-    video: null, // Video file
-    thumbnail: null, // Thumbnail file
-    prompt: '', // AI prompt for the video
+    title: '',
+    video: null,
+    thumbnail: null,
+    prompt: '',
   });
 
-  // Initialize the video player for video preview
   const player = useVideoPlayer(form.video?.uri as string);
 
-  // Function to open the image or video picker
   const openPicker = async (selectType: string) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images', 'videos'],
@@ -43,26 +40,23 @@ const Create = () => {
       quality: 1,
     });
 
-    // If a selection was made, update form based on selectType (image or video)
     if (!result.canceled) {
       if (selectType === 'image') {
         setForm({
           ...form,
-          thumbnail: result.assets[0], // Set the thumbnail image
+          thumbnail: result.assets[0],
         });
       }
       if (selectType === 'video') {
         setForm({
           ...form,
-          video: result.assets[0], // Set the video file
+          video: result.assets[0],
         });
       }
     }
   };
 
-  // Submit function to handle the form submission and video post creation
   const submit = async () => {
-    // Check if all required fields are filled
     if (
       form.prompt === '' ||
       form.title === '' ||
@@ -72,23 +66,19 @@ const Create = () => {
       return Alert.alert('Please provide all fields');
     }
 
-    setUploading(true); // Set uploading state to true
+    setUploading(true);
 
     try {
-      // Call API to create the video post
       await createVideoPost({
         ...form,
-        userId: user?.$id, // Pass user ID along with form data
+        userId: user?.$id,
       });
 
-      // Show success message
       Alert.alert('Success', 'Post uploaded successfully');
-      router.push('/home'); // Navigate to home page after successful upload
+      router.push('/home');
     } catch (error: any) {
-      // Show error message if the upload fails
       Alert.alert('Error', error.message);
     } finally {
-      // Reset form and uploading state
       setForm({
         title: '',
         video: null,
@@ -190,14 +180,13 @@ const Create = () => {
           title="Submit & Publish"
           handlePress={submit}
           containerStyles="mt-7"
-          isLoading={uploading} // Show loading spinner while uploading
+          isLoading={uploading}
         />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-// Styles for video preview
 const styles = StyleSheet.create({
   video: {
     width: '100%',
