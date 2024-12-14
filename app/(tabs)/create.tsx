@@ -20,18 +20,21 @@ import { Form } from '@/lib/types';
 import { createVideoPost } from '@/lib/appwrite';
 import { useVideoPlayer, VideoView } from 'expo-video';
 
+// Component to handle video creation
 const Create = () => {
-  const { user } = useGlobalContext();
-  const [uploading, setUploading] = useState(false);
+  const { user } = useGlobalContext(); // Global context to get user information
+  const [uploading, setUploading] = useState(false); // State to track if the video is uploading
   const [form, setForm] = useState<Form>({
-    title: '',
-    video: null,
-    thumbnail: null,
-    prompt: '',
+    title: '', // Title of the video
+    video: null, // Video file
+    thumbnail: null, // Thumbnail file
+    prompt: '', // AI prompt for the video
   });
 
+  // Initialize the video player for video preview
   const player = useVideoPlayer(form.video?.uri as string);
 
+  // Function to open the image or video picker
   const openPicker = async (selectType: string) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images', 'videos'],
@@ -39,23 +42,27 @@ const Create = () => {
       aspect: [4, 3],
       quality: 1,
     });
+
+    // If a selection was made, update form based on selectType (image or video)
     if (!result.canceled) {
       if (selectType === 'image') {
         setForm({
           ...form,
-          thumbnail: result.assets[0],
+          thumbnail: result.assets[0], // Set the thumbnail image
         });
       }
       if (selectType === 'video') {
         setForm({
           ...form,
-          video: result.assets[0],
+          video: result.assets[0], // Set the video file
         });
       }
     }
   };
 
+  // Submit function to handle the form submission and video post creation
   const submit = async () => {
+    // Check if all required fields are filled
     if (
       form.prompt === '' ||
       form.title === '' ||
@@ -64,17 +71,24 @@ const Create = () => {
     ) {
       return Alert.alert('Please provide all fields');
     }
-    setUploading(true);
+
+    setUploading(true); // Set uploading state to true
+
     try {
+      // Call API to create the video post
       await createVideoPost({
         ...form,
-        userId: user?.$id,
+        userId: user?.$id, // Pass user ID along with form data
       });
+
+      // Show success message
       Alert.alert('Success', 'Post uploaded successfully');
-      router.push('/home');
+      router.push('/home'); // Navigate to home page after successful upload
     } catch (error: any) {
+      // Show error message if the upload fails
       Alert.alert('Error', error.message);
     } finally {
+      // Reset form and uploading state
       setForm({
         title: '',
         video: null,
@@ -88,8 +102,10 @@ const Create = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="px-4 my-6">
+        {/* Title Section */}
         <Text className="text-2xl text-white font-psemibold">Upload Video</Text>
 
+        {/* Form field for the video title */}
         <FormField
           title="Video Title"
           value={form.title as string}
@@ -98,12 +114,14 @@ const Create = () => {
           otherStyles="mt-10"
         />
 
+        {/* Video upload section */}
         <View className="mt-7 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
             Upload Video
           </Text>
 
           <Pressable onPress={() => openPicker('video')}>
+            {/* If video is selected, show video preview, otherwise show upload placeholder */}
             {form.video ? (
               <VideoView
                 style={styles.video}
@@ -126,12 +144,14 @@ const Create = () => {
           </Pressable>
         </View>
 
+        {/* Thumbnail upload section */}
         <View className="mt-7 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
             Thumbnail Image
           </Text>
 
           <Pressable onPress={() => openPicker('image')}>
+            {/* If thumbnail is selected, show image preview, otherwise show upload placeholder */}
             {form.thumbnail ? (
               <Image
                 source={{ uri: form.thumbnail.uri }}
@@ -154,6 +174,7 @@ const Create = () => {
           </Pressable>
         </View>
 
+        {/* AI prompt input field */}
         <FormField
           title="AI Prompt"
           value={form.prompt}
@@ -164,17 +185,19 @@ const Create = () => {
           otherStyles="mt-7"
         />
 
+        {/* Submit button */}
         <CustomButton
           title="Submit & Publish"
           handlePress={submit}
           containerStyles="mt-7"
-          isLoading={uploading}
+          isLoading={uploading} // Show loading spinner while uploading
         />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
+// Styles for video preview
 const styles = StyleSheet.create({
   video: {
     width: '100%',
@@ -182,4 +205,5 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
 });
+
 export default Create;
