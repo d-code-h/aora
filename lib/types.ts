@@ -92,17 +92,16 @@ interface FormFieldType {
   keyboardType?: string; // Optional keyboard type (e.g., 'numeric')
 }
 
-// Exporting all the types for use in other parts of the application
-export type {
+export {
+  Form,
   SearchType,
   AuthState,
-  GlobalType,
-  VideoCardType,
   TrendingItemProps,
   TrendingProps,
   InfoBoxType,
+  VideoCardType,
   CustomButtonType,
+  GlobalType,
   EmptyStateType,
-  Form,
   FormFieldType,
 };

@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'; // Importing necessary components from React Native
 import React from 'react'; // Importing React library
 import { Stack } from 'expo-router'; // Importing Stack for navigation between screens using expo-router
 import { StatusBar } from 'expo-status-bar'; // Importing StatusBar to manage the appearance of the device status bar

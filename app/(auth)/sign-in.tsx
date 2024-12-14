@@ -7,7 +7,7 @@ import CustomButtom from '@/components/CustomButton'; // Importing CustomButtom 
 import { Link, router } from 'expo-router'; // Importing Link and router for navigation
 import { getCurrentUser, signIn } from '@/lib/appwrite'; // Importing authentication functions from appwrite lib
 import { useGlobalContext } from '@/context/GlobalProvider'; // Importing context to manage user state
-import { AuthState } from '@/lib/types'; // Importing types for authentication state
+import { AuthState } from '@/lib/types';
 
 const SignIn = () => {
   // Defining state for form data (email and password)
@@ -20,7 +20,7 @@ const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Destructuring functions from GlobalContext to update user and login state
-  const { setUser, setIsLoggedIn } = useGlobalContext();
+  const { setUser, setIsLoggedIn, setUserPrefs } = useGlobalContext();
 
   // Function to handle form submission
   const submit = async () => {
@@ -37,8 +37,16 @@ const SignIn = () => {
 
       // Fetch the current user data after successful sign in
       const result = await getCurrentUser();
-      setUser(result); // Set user data in context
-      setIsLoggedIn(true); // Set logged-in state to true
+
+      // Extract currentUser and userPrefs from the result
+      const { currentUser, userPrefs } = result;
+
+      // Update the context state with the current user and preferences
+      setUser(currentUser); // Set the user document
+      setUserPrefs(userPrefs); // Set the user preferences
+
+      // Set logged-in state to true
+      setIsLoggedIn(true);
 
       // Navigate to the home screen
       router.replace('/home');

@@ -16,9 +16,9 @@ import { icons } from '../../constants';
 import CustomButton from '@/components/CustomButton';
 import FormField from '@/components/FormField';
 import { useGlobalContext } from '../../context/GlobalProvider';
-import { Form } from '@/lib/types';
 import { createVideoPost } from '@/lib/appwrite';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { Form } from '@/lib/types';
 
 // Component to handle video creation
 const Create = () => {
