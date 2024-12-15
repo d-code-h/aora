@@ -66,13 +66,13 @@ and many more, including code architecture and reusability
 Ensure the following environment variables are configured:
 
 ```
-EXPO_PUBLIC_ENDPOINT = <your_appwrite_endpoint>
-EXPO_PUBLIC_PLATFORM = <your_public_platform_name>
-EXPO_PUBLIC_PROJECTID = <your_project_id>
-EXPO_PUBLIC_DATABASEID = <your_appwrite_database_id>
-EXPO_PUBLIC_USERCOLLECTIONID = <your_appwrite_user_collection_id>
-EXPO_PUBLIC_VIDEOCOLLECTIONID = <your_appwrite_video_collection_id>
-EXPO_PUBLIC_STORAGEID = <your_appwrite_storage_id>
+APPWRITE_ENDPOINT = <your_appwrite_endpoint>
+APPWRITE_PLATFORM = <your_public_platform_name>
+APPWRITE_PROJECTID = <your_project_id>
+APPWRITE_DATABASEID = <your_appwrite_database_id>
+APPWRITE_USERCOLLECTIONID = <your_appwrite_user_collection_id>
+APPWRITE_VIDEOCOLLECTIONID = <your_appwrite_video_collection_id>
+APPWRITE_STORAGEID = <your_appwrite_storage_id>
 ```
 
 ## 💻 Development
@@ -84,6 +84,10 @@ To contribute, follow these steps:
 3. Implement your changes and test them.
 4. Commit your changes and push to your branch.
 5. Open a pull request with a description of your changes.
+
+## 📱 Live App (APK)
+
+Download the apk app [here](https://drive.google.com/file/d/16vUwOoiz7CdWT7AyB6ly-aqGHkaKDjXW/view?usp=sharing)
 
 ## ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg) License
 
