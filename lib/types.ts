@@ -92,6 +92,16 @@ interface FormFieldType {
   keyboardType?: string; // Optional keyboard type (e.g., 'numeric')
 }
 
+interface AppConfig {
+  APPWRITE_ENDPOINT: string;
+  APPWRITE_DATABASEID: string;
+  APPWRITE_PLATFORM: string;
+  APPWRITE_PROJECTID: string;
+  APPWRITE_STORAGEID: string;
+  APPWRITE_USERCOLLECTIONID: string;
+  APPWRITE_VIDEOCOLLECTIONID: string;
+}
+
 export {
   Form,
   SearchType,
@@ -104,4 +114,5 @@ export {
   GlobalType,
   EmptyStateType,
   FormFieldType,
+  AppConfig,
 };

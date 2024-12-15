@@ -8,18 +8,28 @@ import {
   Query, // Provides methods for querying the database.
   Storage, // Manages file storage operations.
 } from 'react-native-appwrite';
-import { Form } from './types'; // Custom types (not used in this snippet).
+import { AppConfig, Form } from './types'; // Custom types (not used in this snippet).
 import { ImagePickerAsset } from 'expo-image-picker'; // For picking images (not used in this snippet).
+import Constants from 'expo-constants';
+const {
+  APPWRITE_ENDPOINT,
+  APPWRITE_PROJECTID,
+  APPWRITE_DATABASEID,
+  APPWRITE_PLATFORM,
+  APPWRITE_STORAGEID,
+  APPWRITE_USERCOLLECTIONID,
+  APPWRITE_VIDEOCOLLECTIONID,
+} = Constants.expoConfig?.extra as AppConfig;
 
 // Configuration object for Appwrite integration, using environment variables.
 export const config = {
-  endpoint: process.env.EXPO_PUBLIC_ENDPOINT, // Appwrite API endpoint.
-  platform: process.env.EXPO_PUBLIC_PLATFORM, // Platform identifier for the app.
-  projectId: process.env.EXPO_PUBLIC_PROJECTID, // Project ID in Appwrite.
-  databaseId: process.env.EXPO_PUBLIC_DATABASEID, // Database ID in Appwrite.
-  userCollectionId: process.env.EXPO_PUBLIC_USERCOLLECTIONID, // Collection ID for user data.
-  videoCollectionId: process.env.EXPO_PUBLIC_VIDEOCOLLECTIONID, // Collection ID for video posts.
-  storageId: process.env.EXPO_PUBLIC_STORAGEID, // Storage ID for file storage.
+  endpoint: APPWRITE_ENDPOINT, // Appwrite API endpoint.
+  platform: APPWRITE_PLATFORM, // Platform identifier for the app.
+  projectId: APPWRITE_PROJECTID, // Project ID in Appwrite.
+  databaseId: APPWRITE_DATABASEID, // Database ID in Appwrite.
+  userCollectionId: APPWRITE_USERCOLLECTIONID, // Collection ID for user data.
+  videoCollectionId: APPWRITE_VIDEOCOLLECTIONID, // Collection ID for video posts.
+  storageId: APPWRITE_STORAGEID, // Storage ID for file storage.
 };
 
 // Destructure the config values for ease of use.
